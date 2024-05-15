@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    function debouncePopularDiv() {
+        clearTimeout(timeout)
+        const timeout = setTimeout(function () {
+            popularDiv()
+        }, 100);
+    }
+
+    function popularDiv() {
+        const a = document.getElementById("firstNumber").value;
+        const b = document.getElementById("secondNumber").value;
+
+        fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b)
+            .then(function (response) {
+                response.text()
+                    .then(function (ans) {
+                        document.getElementById("finalSum").innerHTML = ans;
+                    })
+            })
+    }
+
+    async function popularDiv2() {
+        const a = document.getElementById("firstNumber").value;
+        const b = document.getElementById("secondNumber").value;
+
+        const response = await fetch("https://sum-server.100xdevs.com/sum?a=" + a + "&b=" + b);
+        const ans = await response.text();
+        document.getElementById("finalSum").innerHTML = ans;
+    }
+</script>
+
+
+<body>
+    <input onclick="popularDiv()" id="firstNumber" type="text" placeholder="First Name"><br><br />
+    <input onclick="popularDiv()" id="secondNumber" type="text" placeholder="second Name"><br><br />
+    <div id="finalSum"></div>
+</body>
+
+</html>
